@@ -26,8 +26,10 @@ def trim_str(str_to_trim):
 
 def parse_dollar(dollar_str):
     if dollar_str:
+        print("Dollar Str")
+        print(dollar_str)
         try:
-            converted = float(re.sub("[ ,]+","",dollar_str))
+            converted = float(re.sub("[+s,]+","",dollar_str))
             return converted
         except:
             return None
