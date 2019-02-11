@@ -44,8 +44,6 @@ class WriteItemPipeline(object):
         # self.csvfile.close()
         for exporter in self.year_to_exporter.values():
             exporter.finish_exporting()
-            print(str(exporter))
-            print(str(exporter.csv_writer))
             exporter.stream.close()
             # exporter.file.close()
 

@@ -12,11 +12,11 @@ class F500Spider(Spider):
     allowed_urls = ['https://money.cnn.com/magazines/fortune/']
     masterLinksList = None
 
-    start_year1 = 1955
-    end_year1 = 1961
+    start_year1 = 1961
+    end_year1 = 2006
 
-    start_year2 = 2006
-    end_year2 = 2007
+    start_year2 = 2007
+    end_year2 = 2013
 
 
     xpath_sets = {
@@ -77,16 +77,16 @@ class F500Spider(Spider):
 
         urls = self.getMasterLinks().keys()
 
-        print(urls)
+        # print(urls)
 
         for url in urls:
             yield Request(url=url, callback=self.parse)
 
     def parse(self, response):
 
-        print("response URL : " + response.url)
+        # print("response URL : " + response.url)
         year_parsed = self.getMasterLinks().get(response.url)
-        print("Year :" + str(year_parsed))
+        # print("Year :" + str(year_parsed))
 
         if (year_parsed<2008):
             xpath_tags = self.xpath_sets.get("pre2008")
