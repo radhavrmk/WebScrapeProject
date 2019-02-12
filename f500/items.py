@@ -39,8 +39,7 @@ def adjust_detailURL(url):
         return re.sub("(\.\./\.\.)+", "https://money.cnn.com/magazines/fortune/fortune500_archive",url)
 
 class F500DetailItem(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
+    # This is for future scraping
     year = scrapy.Field()
     rank = scrapy.Field()
     company = scrapy.Field()

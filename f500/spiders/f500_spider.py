@@ -12,13 +12,18 @@ class F500Spider(Spider):
     allowed_urls = ['https://money.cnn.com/magazines/fortune/']
     masterLinksList = None
 
+    """
+    Variables for easy restart. Should move to commandline parameters in future version 
+    """
     start_year1 = 1961
     end_year1 = 2006
 
     start_year2 = 2007
     end_year2 = 2013
 
-
+    '''
+    XPATH variations to address three differnt formats of the archive pages
+    '''
     xpath_sets = {
         'pre2008' : {
             'rows'      : '//table[@class="maglisttable"]//tr[@id="tablerow"]',
@@ -48,6 +53,10 @@ class F500Spider(Spider):
     }
 
     def getMasterLinks(self):
+        """
+        Routine to build the master link list to crawl
+        """
+
         if self.masterLinksList == None:
             links = {}
             first = "https://money.cnn.com/magazines/fortune/fortune500_archive/full/"
@@ -74,19 +83,13 @@ class F500Spider(Spider):
         return self.masterLinksList
 
     def start_requests(self):
-
         urls = self.getMasterLinks().keys()
-
-        # print(urls)
-
         for url in urls:
             yield Request(url=url, callback=self.parse)
 
     def parse(self, response):
 
-        # print("response URL : " + response.url)
         year_parsed = self.getMasterLinks().get(response.url)
-        # print("Year :" + str(year_parsed))
 
         if (year_parsed<2008):
             xpath_tags = self.xpath_sets.get("pre2008")
